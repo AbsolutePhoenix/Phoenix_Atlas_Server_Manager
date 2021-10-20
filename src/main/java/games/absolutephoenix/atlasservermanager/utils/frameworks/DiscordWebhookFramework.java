@@ -1,14 +1,25 @@
 package games.absolutephoenix.atlasservermanager.utils.frameworks;
 
+/*
+The MIT License (MIT)
+
+Copyright (c) 2021 Absolute_Phoenix
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so, subject to the following conditions:
+1: All products using this code may not make revenue.
+2: Any project using this project or significant portions of this project must give credit to the original copyright holder.
+*/
+
 import java.io.IOException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.Color;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -393,7 +404,7 @@ public class DiscordWebhookFramework {
                 } else if (val instanceof Boolean) {
                     builder.append(val);
                 } else if (val instanceof JSONObject) {
-                    builder.append(val.toString());
+                    builder.append(val);
                 } else if (val.getClass().isArray()) {
                     builder.append("[");
                     int len = Array.getLength(val);
@@ -405,7 +416,7 @@ public class DiscordWebhookFramework {
 
                 builder.append(++i == entrySet.size() ? "}" : ",");
             }
-            System.out.println(builder.toString());
+            System.out.println(builder);
             return builder.toString();
         }
 

@@ -1,10 +1,24 @@
 package games.absolutephoenix.atlasservermanager.rcon;
 
+/*
+The MIT License (MIT)
+
+Copyright (c) 2021 Absolute_Phoenix
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+persons to whom the Software is furnished to do so, subject to the following conditions:
+1: All products using this code may not make revenue.
+2: Any project using this project or significant portions of this project must give credit to the original copyright holder.
+*/
+
 import games.absolutephoenix.atlasservermanager.rcon.ex.AuthenticationException;
 
 import java.io.IOException;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 public class Rcon {
@@ -18,7 +32,7 @@ public class Rcon {
     private Charset charset;
 
     public Rcon(String host, int port, byte[] password) throws IOException, AuthenticationException {
-        this.charset = Charset.forName("UTF-8");
+        this.charset = StandardCharsets.UTF_8;
 
         this.connect(host, port, password);
     }
