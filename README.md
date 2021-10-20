@@ -43,13 +43,13 @@ This repo is entirely [MIT licensed](/LICENSE)
 
 ## Special Thanks
 
-- #####<u>Project Owner</u>:
+- ####<u>Project Owner</u>:
       Absoulte Phoenix
 
-- #####<u>Discord Staff</u>
+- ####<u>Discord Staff</u>
       HanaRyoko
 
-- #####<u>Code Contributors</u>
+- ####<u>Code Contributors</u>
       no code is being accepted at this moment in time. This will change after the first release.
-- #####<u>Monetary Donors</u>
+- ####<u>Monetary Donors</u>
       none as i am not asking for dontations or allowing them at this moment in time.
