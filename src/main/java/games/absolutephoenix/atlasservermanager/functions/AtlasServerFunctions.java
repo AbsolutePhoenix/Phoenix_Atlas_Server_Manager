@@ -13,12 +13,109 @@ persons to whom the Software is furnished to do so, subject to the following con
 2: Any project using this project or significant portions of this project must give credit to the original copyright holder.
 */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import org.apache.commons.compress.archivers.ArchiveEntry;
+import org.apache.commons.compress.archivers.ArchiveException;
+import org.apache.commons.compress.archivers.ArchiveInputStream;
+import org.apache.commons.compress.archivers.ArchiveStreamFactory;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class AtlasServerFunctions {
 
+    public static void InstallAtlas() {
+        try {
+            Process process = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start /wait /high /min steamcmd\\steamcmd.exe +login anonymous +force_install_dir ..\\ +app_update 1006030 validate +exit"});
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void InstallAtlasServerGridEditor() {
+        try {
+            FileUtils.copyURLToFile(new URL("https://github.com/GrapeshotGames/ServerGridEditor/archive/refs/heads/master.zip"), new File("AtlasServerGridEditor.zip"));
+            try {
+                Path filePath = Paths.get("AtlasServerGridEditor.zip");
+                InputStream inputStream = Files.newInputStream(filePath);
+                ArchiveStreamFactory archiveStreamFactory = new ArchiveStreamFactory();
+                ArchiveInputStream archiveInputStream = archiveStreamFactory.createArchiveInputStream(ArchiveStreamFactory.ZIP, inputStream);
+                ArchiveEntry archiveEntry;
+                while ((archiveEntry = archiveInputStream.getNextEntry()) != null) {
+                    Path path = Paths.get("AtlasTools", archiveEntry.getName());
+                    File file = path.toFile();
+                    if (archiveEntry.isDirectory()) {
+                        if (!file.isDirectory()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            file.mkdirs();
+                        }
+                    } else {
+                        File parent = file.getParentFile();
+                        if (!parent.isDirectory()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            parent.mkdirs();
+                        }
+                        try (OutputStream outputStream = Files.newOutputStream(path)) {
+                            IOUtils.copy(archiveInputStream, outputStream);
+                        }
+                    }
+                }
+            } catch (IOException | ArchiveException e) {
+                e.printStackTrace();
+            }
+            FileUtils.forceDelete(new File("AtlasServerGridEditor.zip"));
+            //noinspection ResultOfMethodCallIgnored
+            new File("AtlasTools/ServerGridEditor-master").renameTo(new File("AtlasTools/ServerGridEditor"));
+
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public static void InstallSteamCMD() {
+        try {
+            FileUtils.copyURLToFile(new URL("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"), new File("steamcmd.zip"));
+            try {
+                Path filePath = Paths.get("steamcmd.zip");
+                InputStream inputStream = Files.newInputStream(filePath);
+                ArchiveStreamFactory archiveStreamFactory = new ArchiveStreamFactory();
+                ArchiveInputStream archiveInputStream = archiveStreamFactory.createArchiveInputStream(ArchiveStreamFactory.ZIP, inputStream);
+                ArchiveEntry archiveEntry;
+                while ((archiveEntry = archiveInputStream.getNextEntry()) != null) {
+                    Path path = Paths.get("SteamCMD", archiveEntry.getName());
+                    File file = path.toFile();
+                    if (archiveEntry.isDirectory()) {
+                        if (!file.isDirectory()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            file.mkdirs();
+                        }
+                    } else {
+                        File parent = file.getParentFile();
+                        if (!parent.isDirectory()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            parent.mkdirs();
+                        }
+                        try (OutputStream outputStream = Files.newOutputStream(path)) {
+                            IOUtils.copy(archiveInputStream, outputStream);
+                        }
+                    }
+                }
+            } catch (IOException | ArchiveException e) {
+                e.printStackTrace();
+            }
+            FileUtils.forceDelete(new File("steamcmd.zip"));
+
+            Process process = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start /wait /high /min steamcmd\\steamcmd.exe +exit"});
+            process.waitFor();
+        }catch (IOException | InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+    }
     public static boolean CheckForRedis() throws IOException {
         boolean redisRunning = false;
         String line;
@@ -32,7 +129,6 @@ public class AtlasServerFunctions {
         input.close();
         return redisRunning;
     }
-
     public static void StartRedisServer() throws IOException {
         if (CheckForRedis())
         {
@@ -47,7 +143,6 @@ public class AtlasServerFunctions {
             }
         }
     }
-
     public static void StopRedisServer() throws IOException {
         Process p = Runtime.getRuntime().exec("taskkill /F /IM redis-server.exe");
     }

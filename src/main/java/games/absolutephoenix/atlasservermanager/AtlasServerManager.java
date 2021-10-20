@@ -14,18 +14,118 @@ persons to whom the Software is furnished to do so, subject to the following con
 */
 
 import games.absolutephoenix.atlasservermanager.functions.AtlasServerFunctions;
+import games.absolutephoenix.atlasservermanager.userinterface.SplashScreen;
+import games.absolutephoenix.atlasservermanager.utils.HelperMethods;
 
-import java.io.IOException;
 
 public class AtlasServerManager {
 
     public static void main(String[] args)
     {
+        SplashScreen splashScreen = new SplashScreen();
+        InstallRequiredPrograms(splashScreen);
+        splashScreen.setTask("Startup Tasks complete!");
         try {
-            AtlasServerFunctions.StopRedisServer();
-        } catch (IOException e) {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        splashScreen.Destroy();
 
+    }
+
+    private static void InstallRequiredPrograms(SplashScreen splashScreen)
+    {
+        //Install SteamCMD
+        splashScreen.setTask("Checking for SteamCMD.");
+        try {
+            Thread.sleep(400);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(HelperMethods.CheckForSteamCMD()) {
+            splashScreen.setTask("SteamCMD is installed.");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }else {
+            splashScreen.setTask("SteamCMD not found.");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            splashScreen.setTask("Downloading and installing SteamCMD. (Please wait, depending on your internet this could take a bit.)");
+            AtlasServerFunctions.InstallSteamCMD();
+            splashScreen.setTask("SteamCMD is now installed.");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //Install Atlas
+        splashScreen.setTask("Checking for Atlas.");
+        try {
+            Thread.sleep(400);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(HelperMethods.CheckForAtlas()) {
+            splashScreen.setTask("Atlas is installed.");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }else {
+            splashScreen.setTask("Atlas not found.");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            splashScreen.setTask("Downloading and installing Atlas. (Please wait, depending on your internet this could take a bit.)");
+            AtlasServerFunctions.InstallAtlas();
+            splashScreen.setTask("Atlas is now installed");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //Install Server Grid
+        splashScreen.setTask("Checking for Server Grid Editor.");
+        try {
+            Thread.sleep(400);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(HelperMethods.CheckForServerGridEditor()) {
+            splashScreen.setTask("Server Grid Editor is installed.");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }else {
+            splashScreen.setTask("Server Grid Editor not found.");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            splashScreen.setTask("Downloading Server Grid Editor.");
+            AtlasServerFunctions.InstallAtlasServerGridEditor();
+            splashScreen.setTask("Server Grid Editor is now installed");
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
