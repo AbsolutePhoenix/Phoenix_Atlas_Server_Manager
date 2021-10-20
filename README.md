@@ -31,7 +31,7 @@ Running servers is a hard task if you don't know what you're doing. I am here to
 
 ## Contributing
 
-Until the software has had its first beta release I will not be accepting code contributions. If you want to help with the development of this program and are excited with what it will have to offer then you can join our <a herf="https://discord.gg/Gh4fnxyqCT">discord</a> to keep up to date with what is going on.
+Until the software has had its first beta release I will not be accepting code contributions. If you want to help with the development of this program and are excited with what it will have to offer then you can join our <a href="https://discord.gg/Gh4fnxyqCT">discord</a> to keep up to date with what is going on.
 
 I may not be accepting code contributions at the moment but there is a suggestions section on the discord if there is a feature you would be interested in seeing on the manager that may not have been mentioned on this page. So feel free to submit suggestions, and I will take them into consideration.
 <br />
@@ -43,13 +43,14 @@ This repo is entirely [MIT licensed](/LICENSE)
 
 ## Special Thanks
 
-- ####<u>Project Owner</u>:
-      Absoulte Phoenix
+<b>Project Owner</b>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;Absoulte Phoenix
 
-- ####<u>Discord Staff</u>
-      HanaRyoko
+<b>Discord Staff</b>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;HanaRyoko
 
-- ####<u>Code Contributors</u>
-      no code is being accepted at this moment in time. This will change after the first release.
-- ####<u>Monetary Donors</u>
-      none as i am not asking for dontations or allowing them at this moment in time.
+<b>Code Contributors</b>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;no code is being accepted at this moment in time. This will change after the first release.
+      
+<b>Monetary Donors</b>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;none as I am not asking for dontations or allowing them at this moment in time.
