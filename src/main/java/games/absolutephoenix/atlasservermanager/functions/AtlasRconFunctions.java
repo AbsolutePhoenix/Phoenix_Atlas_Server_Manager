@@ -11,7 +11,7 @@ public class AtlasRconFunctions {
     public static void StopGrid(String GridID)
     {
         try {
-            Rcon rcon = new Rcon("127.0.0.1", 2000, "p03301991".getBytes());
+            Rcon rcon = new Rcon("127.0.0.1", 2000, "password".getBytes());
             rcon.command("DoExit");
             rcon.disconnect();
         } catch (IOException | AuthenticationException e) {
@@ -25,7 +25,7 @@ public class AtlasRconFunctions {
         String[][] result;
         String response;
         try {
-            Rcon rcon = new Rcon("127.0.0.1", 28186, "p03301991".getBytes());
+            Rcon rcon = new Rcon("127.0.0.1", 28186, "password".getBytes());
             response = rcon.command("listplayers");
             rcon.disconnect();
         } catch (IOException | AuthenticationException e) {
