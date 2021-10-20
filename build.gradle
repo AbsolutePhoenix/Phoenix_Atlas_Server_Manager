@@ -1,0 +1,77 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'java'
+    id 'maven-publish'
+}
+
+def className = "AtlasServerManager"
+def programVersion = "0.0.1"
+def codeName = "alpha"
+def mainClassPath = "games.absolutephoenix"
+def packageName = className.toLowerCase()
+def versionFileName = "Reference.java"
+def versionJavaFile = "src/main/java/games/absolutephoenix/$packageName/reference/$versionFileName"
+def tmpDir = "build/tmp/sourcesCache"
+
+group = "games.absolutephoenix"
+archivesBaseName = className
+version = programVersion + '-' + codeName
+
+
+sourceCompatibility = targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-compress
+    implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
+
+
+}
+
+jar{
+    manifest{
+        attributes("Main-Class":"$mainClassPath.$packageName.$className")
+    }
+}
+
+compileJava.doFirst {
+    copy{
+        from{versionJavaFile}
+        into(tmpDir)
+    }
+    ant.replace(file: versionJavaFile, token: '@VERSION@', value: version)
+}
+
+compileJava.doLast {
+    copy{
+        from(tmpDir + '/' + versionFileName)
+        into(project.file(versionJavaFile).parent)
+    }
+}
+
+if(JavaVersion.current().isJava8Compatible())
+{
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclient.none', '-quiet')
+    }
+}
+
+shadowJar{
+    destinationDir = file(new File("$projectDir/../Compiled Software/Java"))
+    baseName = "$className-$programVersion-$codeName"
+    appendix = null
+    classifier = null
+    version = null
+    extension = "jar"
+
+    dependencies{
+    }
+}
+
+build.dependsOn(shadowJar)
