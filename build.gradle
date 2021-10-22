@@ -30,6 +30,9 @@ dependencies {
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-compress
     implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
+    // https://mvnrepository.com/artifact/org.ini4j/ini4j
+    implementation group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
+
 
 
 }

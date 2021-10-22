@@ -30,7 +30,9 @@ public class AtlasServerFunctions {
 
     public static void InstallAtlas() {
         try {
+            //run steam cmd with parameters to download atlas.
             Process process = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start /wait /high /min steamcmd\\steamcmd.exe +login anonymous +force_install_dir ..\\ +app_update 1006030 validate +exit"});
+            //wait for process to finish
             process.waitFor();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -108,7 +110,6 @@ public class AtlasServerFunctions {
                 e.printStackTrace();
             }
             FileUtils.forceDelete(new File("steamcmd.zip"));
-
             Process process = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", "start /wait /high /min steamcmd\\steamcmd.exe +exit"});
             process.waitFor();
         }catch (IOException | InterruptedException e)
@@ -144,7 +145,10 @@ public class AtlasServerFunctions {
         }
     }
     public static void StopRedisServer() throws IOException {
-        Process p = Runtime.getRuntime().exec("taskkill /F /IM redis-server.exe");
+        if(CheckForRedis())
+        {
+            Process p = Runtime.getRuntime().exec("taskkill /F /IM redis-server.exe");
+        }
     }
     public static void StartAtlasServer(int gridX, int gridY, String saveDirectoryName, String adminPassword, int maxPlayers, int queryPort, int gamePort, String ip, boolean rconEnabled, int rconPort, boolean battleEye) throws IOException {
         String ProcessArguments = "Ocean" + "?" + "ServerX=" + gridX + "?" + "ServerY=" + gridY + "?" + "AltSaveDirectoryName=" + saveDirectoryName + "?" + "ServerAdminPassword=" + adminPassword + "?" + "MaxPlayers=" + maxPlayers + "?" + "ReservedPlayerSlots=" + (maxPlayers / 2) + "?" + "QueryPort=" + queryPort + "?" + "Port=" + gamePort + "?" + "SeamlessIP=" + ip + "?" + "RCONEnabled=" + rconEnabled + "?" + "RCONPort=" + rconPort + " -log -server";

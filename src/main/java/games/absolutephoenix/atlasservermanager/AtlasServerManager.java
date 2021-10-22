@@ -13,30 +13,42 @@ persons to whom the Software is furnished to do so, subject to the following con
 2: Any project using this project or significant portions of this project must give credit to the original copyright holder.
 */
 
+import games.absolutephoenix.atlasservermanager.configuration.ConfigManager;
+import games.absolutephoenix.atlasservermanager.configuration.settings.ManagerSettings;
 import games.absolutephoenix.atlasservermanager.functions.AtlasServerFunctions;
 import games.absolutephoenix.atlasservermanager.userinterface.SplashScreen;
 import games.absolutephoenix.atlasservermanager.utils.HelperMethods;
 
+import java.io.File;
+import java.io.IOException;
 
 public class AtlasServerManager {
 
     public static void main(String[] args)
     {
-        SplashScreen splashScreen = new SplashScreen();
-        InstallRequiredPrograms(splashScreen);
-        splashScreen.setTask("Startup Tasks complete!");
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
+            if(!new File("ManagerConfig/Manager.ini").exists())
+                ConfigManager.FirstTimeCreateConfig();
+            ConfigManager.LoadLauncherSettings();
+            ConfigManager.SaveLauncherSettings();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        splashScreen.Destroy();
+
+//        SplashScreen splashScreen = new SplashScreen();
+//        InstallRequiredPrograms(splashScreen);
+//        splashScreen.setTask("Startup Tasks complete!");
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        splashScreen.Destroy();
+
 
     }
 
-    private static void InstallRequiredPrograms(SplashScreen splashScreen)
-    {
-        //Install SteamCMD
+    private static void InstallRequiredPrograms(SplashScreen splashScreen) {
         splashScreen.setTask("Checking for SteamCMD.");
         try {
             Thread.sleep(400);
@@ -67,7 +79,6 @@ public class AtlasServerManager {
             }
         }
 
-        //Install Atlas
         splashScreen.setTask("Checking for Atlas.");
         try {
             Thread.sleep(400);
@@ -97,7 +108,7 @@ public class AtlasServerManager {
                 e.printStackTrace();
             }
         }
-        //Install Server Grid
+
         splashScreen.setTask("Checking for Server Grid Editor.");
         try {
             Thread.sleep(400);

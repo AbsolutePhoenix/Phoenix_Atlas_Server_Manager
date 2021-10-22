@@ -21,10 +21,10 @@ import java.io.IOException;
 public class AtlasRconFunctions {
 
 
-    public static void StopGrid(String GridID)
+    public static void StopGrid(String GridID, String host, int port, String password)
     {
         try {
-            Rcon rcon = new Rcon("127.0.0.1", 2000, "password".getBytes());
+            Rcon rcon = new Rcon(host, port, password.getBytes());
             rcon.command("DoExit");
             rcon.disconnect();
         } catch (IOException | AuthenticationException e) {
@@ -32,13 +32,13 @@ public class AtlasRconFunctions {
         }
     }
 
-    public static String[][] GetPlayers(String GridID)
+    public static String[][] GetPlayers(String GridID, String host,  int port, String password)
     {
         String[] FirstSplit;
         String[][] result;
         String response;
         try {
-            Rcon rcon = new Rcon("127.0.0.1", 28186, "password".getBytes());
+            Rcon rcon = new Rcon(host, port, password.getBytes());
             response = rcon.command("listplayers");
             rcon.disconnect();
         } catch (IOException | AuthenticationException e) {
