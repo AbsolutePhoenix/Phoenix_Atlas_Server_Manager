@@ -4,8 +4,8 @@ plugins {
     id 'maven-publish'
 }
 
-def className = "AtlasServerManager"
-def programVersion = "0.0.1"
+def className = "PhoenixAtlasServerManager"
+def programVersion = "0.0.2"
 def codeName = "alpha"
 def mainClassPath = "games.absolutephoenix"
 def packageName = className.toLowerCase()
@@ -15,7 +15,6 @@ def tmpDir = "build/tmp/sourcesCache"
 
 group = "games.absolutephoenix"
 archivesBaseName = className
-version = programVersion + '-' + codeName
 
 
 sourceCompatibility = targetCompatibility = 1.8
@@ -33,15 +32,13 @@ dependencies {
     // https://mvnrepository.com/artifact/org.ini4j/ini4j
     implementation group: 'org.ini4j', name: 'ini4j', version: '0.5.4'
 
+    implementation files('lib/darcula.jar')
+
 
 
 }
 
-jar{
-    manifest{
-        attributes("Main-Class":"$mainClassPath.$packageName.$className")
-    }
-}
+jar { manifest { attributes 'Main-Class': "$mainClassPath.$packageName.$className" } }
 
 compileJava.doFirst {
     copy{
@@ -66,12 +63,13 @@ if(JavaVersion.current().isJava8Compatible())
 }
 
 shadowJar{
-    destinationDir = file(new File("$projectDir/../Compiled Software/Java"))
-    baseName = "$className-$programVersion-$codeName"
-    appendix = null
-    classifier = null
-    version = null
-    extension = "jar"
+
+    destinationDir((new File("$projectDir/../Compiled Software/Java")))
+    archiveBaseName.set("$className")
+    archiveAppendix.set(null)
+    archiveClassifier.set(null)
+    archiveVersion.set("$programVersion-$codeName")
+    archiveExtension.set("jar")
 
     dependencies{
     }
